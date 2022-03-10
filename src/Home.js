@@ -16,12 +16,12 @@ export default function Home() {
     const home = document.createElement('div'); 
     const title = document.createElement('h2'); 
     const pageItems = new renderPageItem(itemsTemp); 
+    
     title.innerText = 'Home'; 
 
-    
 
     home.append(title); 
-    home.append(pageItems); 
+    home.append(pageItems);
     return home; 
 }
 

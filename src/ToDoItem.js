@@ -1,4 +1,4 @@
-export default function ToDoItem(title, description, date, priority, notes, checklist) {
+export default function ToDoItem(title, description, date, priority, notes, checklist, project) {
 
     return {
         title,
@@ -7,6 +7,7 @@ export default function ToDoItem(title, description, date, priority, notes, chec
         priority, 
         notes, 
         checklist, 
+        project,
         complete: false
     }
 }

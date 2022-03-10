@@ -1,6 +1,9 @@
+import AddNewItem from './AddNewItem'; 
 export default function renderPageItem(items) {
 
     const container = document.createElement('div'); 
+    const newItem = document.createElement('button'); 
+    newItem.innerText = '+'
     
     // need to do something to only show tasks to do
     items.forEach(item=> {
@@ -30,10 +33,21 @@ export default function renderPageItem(items) {
         container.append(itemContainer); 
     })
 
+    newItem.className="new-item-btn"
+    newItem.addEventListener('click', function() {
+        const newItemPopUp = newItemBtn(); 
+        document.body.append(newItemPopUp); 
+    });
+    
+    container.append(newItem); 
+
     return container; 
 }
 
 function completeTask(item) {
-    console.log('btn pressed'); 
     return item.complete = true;
+}
+
+function newItemBtn(){
+    return AddNewItem(); 
 }
