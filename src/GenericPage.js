@@ -5,11 +5,7 @@ export default function GenericPage(project) {
     const header = document.createElement('header'); 
     const title = document.createElement('h1'); 
     const sidebar = new NavigationDOM(); 
-    const content = document.createElement('div'); 
-
-
-
-
+    const content = new project; 
 
     title.innerText = 'To Do List | The Odin Project'
 

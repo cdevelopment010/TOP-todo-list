@@ -4,6 +4,7 @@ export default function NavigationDOM() {
     const home = document.createElement('li'); 
     const today = document.createElement('li');
     const week = document.createElement('li');
+    const completeTasks = document.createElement('li');
     const ulProjects = document.createElement('ul'); 
     const addBtn = document.createElement('button'); 
     const projectTitle = document.createElement('h2'); 
@@ -28,11 +29,17 @@ export default function NavigationDOM() {
         clearActive(this); 
         navItem('week')
     })
+    completeTasks.innerText = 'Completed';
+    completeTasks.addEventListener('click', function() {
+        clearActive(this); 
+        navItem('completeTasks')
+    })
 
 
     ulStatic.append(home);
     ulStatic.append(today);
     ulStatic.append(week);
+    ulStatic.append(completeTasks);
 
 
     // dynamic projects

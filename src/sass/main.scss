@@ -13,7 +13,7 @@
     min-height: 100vh; 
     display: grid; 
     grid-template-columns: 1fr 4fr;
-    grid-template-rows: 1fr 4fr;
+    grid-template-rows: 0.5fr 4fr;
     grid-template-areas: "nav header"
         "nav content"
     ;
@@ -25,6 +25,7 @@
     }
 
     .navigation {
+        font-size: 2rem;
         height: 100%; 
         background-color:$primary-col-1; 
         color: $primary-col-2; 
@@ -38,6 +39,14 @@
 
     .content {
         grid-area: content;
+        display: grid; 
+        justify-items: center;
+        gap: 2rem;
+        grid-template-rows: max-content 1fr;
+
+        >div {
+            width: 90%;
+        }
     }
 
     ul {
@@ -50,14 +59,14 @@
         list-style-type: none;
         cursor: pointer;
         position: relative;
-        margin-left: 10px; 
+        margin-left: 1rem; 
 
         &:hover {
             &:before {
                 position: absolute; 
                 content: '//'; 
                 font-weight: bold;
-                left: -15px; 
+                left: -1rem; 
                 top: 0; 
 
             }
@@ -65,11 +74,12 @@
     }
 
     .active {
+        font-weight: bold;
         &:before {
             position: absolute; 
             content: '//'; 
             font-weight: bold;
-            left: -15px; 
+            left: -1rem; 
             top: 0; 
 
         }
@@ -78,6 +88,15 @@
 
 }
 
+
+.item-container {
+    display: grid; 
+    grid-template-columns: 1fr 3fr 1fr;
+    padding: 1rem; 
+    margin-bottom: 1rem; 
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.25);
+}
 
 .single-item-display {
     padding: 2rem; 
