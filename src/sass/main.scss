@@ -1,0 +1,57 @@
+
+
+
+.container {
+    header {
+        h1 {
+            text-align: center;
+        }
+    }
+}
+
+
+.single-item-display {
+    padding: 2rem; 
+    border-radius: 10px; 
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.25);
+    width: 80%; 
+    margin: 1rem auto;
+
+    display: grid;
+    grid-template-areas: "title . date"
+        "priority . . "
+        "desc desc desc"
+        "checklist . . "
+        "notes . . "
+        "btns btns btns"
+    ;
+    gap: 20px; 
+
+    .title {
+        grid-area: title; 
+    }
+
+    .date {
+        grid-area: date;
+
+    }
+    .priority {
+        grid-area: priority;
+    }
+    .desc {
+        grid-area: desc; 
+    }
+    .checklist {
+        grid-area: checklist; 
+    }
+    .notes {
+        grid-area: notes;
+    }
+    .btn-group {
+        grid-area: btns; 
+        justify-self: center;
+        display: flex; 
+        gap: 20px; 
+    }
+    
+}
