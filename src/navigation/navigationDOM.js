@@ -14,15 +14,18 @@ export default function NavigationDOM() {
     // static ul 
     home.innerText = 'Home';
     home.className = 'active'; //make this dynamic
-    home.addEventListener('click', (e) => {
+    home.addEventListener('click', function() {
+        clearActive(this); 
         navItem('home')
     })
     today.innerText = 'Today';
-    today.addEventListener('click', (e) => {
+    today.addEventListener('click', function() {
+        clearActive(this); 
         navItem('today')
     })
     week.innerText = 'Week';
-    week.addEventListener('click', (e) => {
+    week.addEventListener('click', function() {
+        clearActive(this); 
         navItem('week')
     })
 
@@ -41,6 +44,10 @@ export default function NavigationDOM() {
     addBtn.addEventListener('click', () => {
         let item = document.createElement('li'); 
         item.innerText = addItem(); 
+        item.addEventListener('click', function() {
+            clearActive(this); 
+            navItem(item.innerText); 
+        })
         ulProjects.append(item); 
     })
 
@@ -55,6 +62,13 @@ function navItem(item) {
 }
 
 function addItem() {
-
     return 'Project X';
+}
+
+function clearActive(item) {
+    let lis = document.querySelectorAll('nav li'); 
+    lis.forEach(li => {
+        li.classList.remove('active')
+    }); 
+    item.classList.add('active');
 }
