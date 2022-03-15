@@ -28,6 +28,11 @@ export default function filterItems(project) {
             return item.complete ==  true;
         })
     }
+    if (project == 'late') {
+        return itemsStored.filter((item) => {
+            return item.date < new Date().toISOString().substring(0, 10) && item.complete ==  false;
+        })
+    }
 
     return itemsStored.filter((item) => {
         return item.project.toLowerCase() == project && item.complete ==  false;

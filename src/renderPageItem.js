@@ -18,22 +18,31 @@ export default function renderPageItem(items) {
         const itemTitle = document.createElement('h3'); 
         const itemDate = document.createElement('span'); 
         const complete = document.createElement('button'); 
+        const viewBtb = document.createElement('button'); 
 
 
         complete.innerText = 'complete';
         complete.classNam = 'complete-btn'; 
+        viewBtb.innerText = 'View Task';
+        viewBtb.classNam = 'view-btn'; 
         itemTitle.innerText = item.title;
         itemDate.innerText = item.date; 
 
         // button event listener
-        complete.addEventListener('click', () => {
+        complete.addEventListener('click', (event) => {
+            event.stopPropagation();
             completeTask(itemTitle.innerText); 
         })
 
+        viewBtb.addEventListener('click', function(event){
+            event.stopPropagation();
+            console.log('view btn clicked'); 
+        }, true)
 
         itemContainer.append(itemDate);
         itemContainer.append(itemTitle);
         itemContainer.append(complete);
+        itemContainer.append(viewBtb);
 
 
         itemContainer.className = 'item-container'
@@ -42,6 +51,7 @@ export default function renderPageItem(items) {
             itemContainer.classList.add('completed-task'); 
         }
         
+        itemContainer.addEventListener('click',  editItem )
         container.append(itemContainer); 
     })
 
@@ -59,8 +69,15 @@ export default function renderPageItem(items) {
 function completeTask(item) {
     console.log(item); 
     CompleteItem(item); 
+    location.reload();
 }
 
 function newItemBtn(){
     return AddNewItem(); 
+}
+
+function editItem() {
+    let titleToEdit = this.querySelector('h3').innerText
+    const newItemPopUp = AddNewItem(titleToEdit); 
+    document.body.append(newItemPopUp); 
 }

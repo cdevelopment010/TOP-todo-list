@@ -19,5 +19,5 @@ export default function manageNewItem() {
     itemsStored.push(task); 
     localStorage.setItem('TOP-todo-items', JSON.stringify(itemsStored)); 
     console.log(localStorage.getItem('TOP-todo-items')); 
-
+    
 }

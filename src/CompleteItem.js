@@ -10,7 +10,8 @@ export default function CompleteItem(item) {
 
     //set back to localStorage
     localStorage.setItem('TOP-todo-items', JSON.stringify(currentItem)); 
-
+    
+    
 
 
 }

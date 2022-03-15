@@ -7,6 +7,7 @@ export default function NavigationDOM() {
     const today = document.createElement('li');
     const week = document.createElement('li');
     const completeTasks = document.createElement('li');
+    const lateTasks = document.createElement('li');
     const ulProjects = document.createElement('ul'); 
     const addBtn = document.createElement('button'); 
     const projectTitle = document.createElement('h2'); 
@@ -20,12 +21,14 @@ export default function NavigationDOM() {
     today.innerText = 'Today';
     week.innerText = 'Week';
     completeTasks.innerText = 'Completed';
+    lateTasks.innerText = 'Late';
     
 
     ulStatic.append(home);
     ulStatic.append(today);
     ulStatic.append(week);
     ulStatic.append(completeTasks);
+    ulStatic.append(lateTasks);
 
 
     // dynamic projects
