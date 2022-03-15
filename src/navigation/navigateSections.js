@@ -1,4 +1,5 @@
 import GenericPage from '../GenericPage.js'; 
+import filterItems from '../filterItems.js';
 import renderPageContent from '../renderPageContent';
 
 export default function navigatateSections() {
@@ -27,5 +28,5 @@ function clearActive(item) {
 
 function navToNewPage(page) {
     document.querySelector('#content-page').remove(); 
-    document.querySelector('#root .container').append(renderPageContent(page)); 
+    document.querySelector('#root .container').append(renderPageContent(page, filterItems(page.toLowerCase()))); 
 }

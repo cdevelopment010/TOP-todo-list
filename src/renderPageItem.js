@@ -4,6 +4,12 @@ export default function renderPageItem(items) {
     const container = document.createElement('div'); 
     const newItem = document.createElement('button'); 
     newItem.innerText = '+'
+
+    //if items are blank return nothing; 
+    if (items.length == 0 ) {
+        container.append(newItem); 
+        return container
+    }    
     
     // need to do something to only show tasks to do
     items.forEach(item=> {

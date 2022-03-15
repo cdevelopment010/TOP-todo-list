@@ -15,7 +15,7 @@ export default function renderPageContent(name, items) {
 
     const page = document.createElement('div'); 
     const title = document.createElement('h2'); 
-    const pageItems = new renderPageItem(itemsTemp); 
+    const pageItems = new renderPageItem(items); 
     
     title.innerText = name; 
     page.id = "content-page"; 

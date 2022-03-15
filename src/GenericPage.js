@@ -1,5 +1,6 @@
 import NavigationDOM from "./navigation/navigationDOM";
 import navigatateSections from "./navigation/navigateSections";
+import filterItems from "./filterItems";
 export default function GenericPage(project, name, items) {
 
 
@@ -8,7 +9,7 @@ export default function GenericPage(project, name, items) {
     const header = document.createElement('header'); 
     const title = document.createElement('h1'); 
     const sidebar = new NavigationDOM(); 
-    const content = new project(name); 
+    const content = new project(name, filterItems(name)); 
 
     title.innerText = 'To Do List | The Odin Project'
 
