@@ -36,31 +36,40 @@ function addItem() {
     console.log('add item to projects'); 
     let item = document.createElement('li'); 
     item.innerText = document.querySelector('#project-popup input').value; 
-    document.querySelector('#project-nav').append(item); 
-    document.querySelector('#project-popup').remove(); 
-    updateLocalStorage(); 
-    navigatateSections(); 
+
+    // check it doesn't already have a project like that
+
+    const lis =  document.querySelectorAll('#project-nav li');
+    let update = true;
+    lis.forEach((li) => {
+        if (li.innerText.toLowerCase() == item.innerText.toLowerCase()) {
+            update = false;
+        }
+    })
+
+    if (update) {
+        document.querySelector('#project-nav').append(item); 
+        document.querySelector('#project-popup').remove(); 
+        updateLocalStorage(); 
+        navigatateSections(); 
+    }
+
+    else {
+        alert('project name already exists'); 
+    }
+    
 }
 
 function closePopup() {
     document.querySelector('#project-popup').remove(); 
 }
 
-function updateLocalStorage() {
+function updateLocalStorage() { 
     const lis =  document.querySelectorAll('#project-nav li');
-    let liToStorage = []; 
-    lis.forEach(li => {
-        liToStorage.push(li.innerText); 
-    }) 
-    if (localStorage.getItem('TOP-project-nav')) {
-        const alreadyStored = JSON.parse(localStorage.getItem('TOP-project-nav')); 
-        alreadyStored.forEach(item => {
-            if (liToStorage.indexOf(item) == -1) {
-                liToStorage.push(item);
-            } 
-        })
-    }
-    
+    let liToStorage = []
+    lis.forEach((li) => {
+       liToStorage.push(li.innerText);
+    })
     //clear the storage to stop duping
     localStorage.removeItem('TOP-project-nav'); 
     localStorage.setItem('TOP-project-nav',JSON.stringify(liToStorage))

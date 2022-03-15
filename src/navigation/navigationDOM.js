@@ -56,6 +56,7 @@ export default function NavigationDOM() {
     deleteStorageBtn.innerText = 'warning: delete all stroage?'; 
     deleteStorageBtn.addEventListener('click', function() {
         localStorage.removeItem('TOP-project-nav'); 
+        localStorage.removeItem('TOP-todo-project');
         // refresh page - is this a good idea? 
         location.reload(); 
     })
