@@ -1,3 +1,5 @@
+import NewProject from "./NewProject";
+
 export default function NavigationDOM() {
     const nav = document.createElement('nav');
     const ulStatic = document.createElement('ul') 
@@ -8,33 +10,17 @@ export default function NavigationDOM() {
     const ulProjects = document.createElement('ul'); 
     const addBtn = document.createElement('button'); 
     const projectTitle = document.createElement('h2'); 
+    const deleteStorageBtn = document.createElement('button'); 
 
 
     projectTitle.innerText = 'Projects'
 
     // static ul 
     home.innerText = 'Home';
-    home.className = 'active'; //make this dynamic
-    home.addEventListener('click', function() {
-        clearActive(this); 
-        navItem('home')
-    })
     today.innerText = 'Today';
-    today.addEventListener('click', function() {
-        clearActive(this); 
-        navItem('today')
-    })
     week.innerText = 'Week';
-    week.addEventListener('click', function() {
-        clearActive(this); 
-        navItem('week')
-    })
     completeTasks.innerText = 'Completed';
-    completeTasks.addEventListener('click', function() {
-        clearActive(this); 
-        navItem('completeTasks')
-    })
-
+    
 
     ulStatic.append(home);
     ulStatic.append(today);
@@ -46,36 +32,40 @@ export default function NavigationDOM() {
     //will need to look for local storage here later
 
     ulProjects.append(projectTitle); 
+    ulProjects.id = 'project-nav'
+
+    //check local storage for projects
+    if (localStorage.getItem('TOP-project-nav')) {
+        const alreadyStored = JSON.parse(localStorage.getItem('TOP-project-nav'));
+
+        alreadyStored.forEach(item => {
+            const li = document.createElement('li'); 
+            li.innerText = item; 
+            ulProjects.append(li); 
+        })
+    }
 
     addBtn.innerText = 'add project';
     addBtn.addEventListener('click', () => {
-        let item = document.createElement('li'); 
-        item.innerText = addItem(); 
-        item.addEventListener('click', function() {
-            clearActive(this); 
-            navItem(item.innerText); 
-        })
-        ulProjects.append(item); 
+        addItem()
     })
+
+    deleteStorageBtn.innerText = 'warning: delete all stroage?'; 
+    deleteStorageBtn.addEventListener('click', function() {
+        localStorage.removeItem('TOP-project-nav'); 
+        // refresh page - is this a good idea? 
+        location.reload(); 
+    })
+    deleteStorageBtn.className='warning-btn'
 
     nav.append(ulStatic)
     nav.append(ulProjects); 
     nav.append(addBtn);
+    nav.append(deleteStorageBtn); 
+    
     return nav; 
 }
 
-function navItem(item) {
-    console.log(`${item} has been clicked`); 
-}
-
 function addItem() {
-    return 'Project X';
-}
-
-function clearActive(item) {
-    let lis = document.querySelectorAll('nav li'); 
-    lis.forEach(li => {
-        li.classList.remove('active')
-    }); 
-    item.classList.add('active');
+    document.querySelector('#root').append(NewProject()); 
 }

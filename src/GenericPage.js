@@ -1,11 +1,14 @@
 import NavigationDOM from "./navigation/navigationDOM";
-export default function GenericPage(project) {
+import navigatateSections from "./navigation/navigateSections";
+export default function GenericPage(project, name, items) {
 
+
+    const root = document.querySelector('#root');
     const page = document.createElement('div'); 
     const header = document.createElement('header'); 
     const title = document.createElement('h1'); 
     const sidebar = new NavigationDOM(); 
-    const content = new project; 
+    const content = new project(name); 
 
     title.innerText = 'To Do List | The Odin Project'
 
@@ -14,12 +17,12 @@ export default function GenericPage(project) {
 
 
     sidebar.className = 'navigation'; 
-    content.className = 'content';
 
     page.append(header);
     page.append(sidebar); 
     page.append(content); 
 
-
-    return page; 
+    root.textContent = ''; 
+    root.append(page); 
+    navigatateSections(); 
 }

@@ -11,18 +11,20 @@ const itemsTemp = [
     ToDoItem('randomTitle4', 'blah desc', 'date', '1','', ['item1', 'item2'])
 ]
 
-export default function Home() {
+export default function renderPageContent(name, items) {
 
-    const home = document.createElement('div'); 
+    const page = document.createElement('div'); 
     const title = document.createElement('h2'); 
     const pageItems = new renderPageItem(itemsTemp); 
     
-    title.innerText = 'Home'; 
+    title.innerText = name; 
+    page.id = "content-page"; 
+    page.className = 'content';
 
 
-    home.append(title); 
-    home.append(pageItems);
-    return home; 
+    page.append(title); 
+    page.append(pageItems);
+    return page; 
 }
 
 
