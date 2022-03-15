@@ -152,6 +152,11 @@
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.25);
 }
 
+.completed-task {
+    background-color: rgba($primary-col-1,0.25);
+    text-decoration: line-through;
+}
+
 .single-item-display {
     padding: 2rem; 
     border-radius: 10px; 

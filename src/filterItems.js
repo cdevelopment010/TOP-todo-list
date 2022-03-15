@@ -4,12 +4,14 @@ export default function filterItems(project) {
     
 
     if (project == 'home') {
-        return itemsStored; 
+        return itemsStored.filter((item) => {
+            return item.complete ==  false;
+        }); 
     }
 
     if (project == 'today') {
         return itemsStored.filter((item) => {
-            return item.date == new Date().toISOString().substring(0, 10);
+            return item.date == new Date().toISOString().substring(0, 10) && item.complete ==  false;
         })
     }
 
@@ -17,18 +19,18 @@ export default function filterItems(project) {
         const now = new Date();         
         let lastWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7).toISOString().substring(0, 10);
         return itemsStored.filter((item) => {
-            return item.date >=  lastWeek;
+            return item.date >=  lastWeek && item.complete ==  false;
         })
     }
 
-    if (project == 'complete') {
+    if (project == 'completed') {
         return itemsStored.filter((item) => {
             return item.complete ==  true;
         })
     }
 
     return itemsStored.filter((item) => {
-        return item.project.toLowerCase() == project;
+        return item.project.toLowerCase() == project && item.complete ==  false;
     })
 
 }

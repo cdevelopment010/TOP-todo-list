@@ -1,4 +1,5 @@
 import AddNewItem from './AddNewItem'; 
+import CompleteItem from './CompleteItem';
 export default function renderPageItem(items) {
 
     const container = document.createElement('div'); 
@@ -25,8 +26,8 @@ export default function renderPageItem(items) {
         itemDate.innerText = item.date; 
 
         // button event listener
-        complete.addEventListener('click', function() {
-            completeTask(this); 
+        complete.addEventListener('click', () => {
+            completeTask(itemTitle.innerText); 
         })
 
 
@@ -36,6 +37,11 @@ export default function renderPageItem(items) {
 
 
         itemContainer.className = 'item-container'
+        
+        if (item.complete) {
+            itemContainer.classList.add('completed-task'); 
+        }
+        
         container.append(itemContainer); 
     })
 
@@ -51,7 +57,8 @@ export default function renderPageItem(items) {
 }
 
 function completeTask(item) {
-    return item.complete = true;
+    console.log(item); 
+    CompleteItem(item); 
 }
 
 function newItemBtn(){
