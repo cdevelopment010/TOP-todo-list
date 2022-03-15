@@ -1,3 +1,4 @@
+import manageNewItem from "./manageNewItem";
 
 
 export default function addNewItemDOM() {
@@ -11,38 +12,46 @@ export default function addNewItemDOM() {
         taskName: {
             id: 'task-name', 
             label: 'Task Name:',
-            type: 'text'
+            type: 'text', 
+            el: 'input'
         },
         taskDesc: {
             id: 'task-desc', 
             label: 'Task Description:',
-            type: 'text'
+            type: 'text', 
+            el: 'input'
         },
         taskDate: {
             id: 'task-date', 
             label: 'Task Date:',
-            type: 'date'
+            type: 'date', 
+            el: 'input'
         },
         taskPriorty: {
             id: 'task-priorty', 
             label: 'Task Priority:',
-            type: 'select', 
+            type: 'select',
+            el: 'select',
             option: ['low', 'medium', 'high', 'DO IT NOW!']
         },
         taskNotes: {
             id: 'task-notes', 
             label: 'Task Notes:',
-            type: 'text'
+            type: 'text', 
+            el: 'input'
         },
         taskChecklist: {
             id: 'task-checklist', 
             label: 'Task checklist (comma separated):',
-            type: 'text'
+            type: 'text', 
+            el: 'input'
         },
         taskProject: {
             id: 'task-project', 
             label: 'Task Project:',
-            type: 'text' //probably should be select
+            type: 'select', //probably should be select
+            el: 'select', 
+            option: JSON.parse(localStorage.getItem('TOP-project-nav'))
         },
     }
     
@@ -52,13 +61,13 @@ export default function addNewItemDOM() {
 
 
     for (let task in obj) {
-        let input = createInput(obj[task].id, obj[task].label, obj[task].type); 
+        let input = createInput(obj[task].id, obj[task].el,obj[task].label, obj[task].type, obj[task].option); 
         form.append(input)
     }
     
     addBtn.innerText = 'Add'; 
     addBtn.addEventListener('click', () => {
-        console.log('add btn clicked')
+        manageAdd(); 
     });
     closeBtn.innerText = 'Close'; 
     closeBtn.addEventListener('click', closeForm);
@@ -77,16 +86,39 @@ function closeForm() {
     removeItem.remove(); 
 }
 
-function createInput(id,labelText, type ) {
+function createInput(id,el, labelText, type, options=[] ) {
     const label = document.createElement('label');
-    const input = document.createElement('input'); 
-
+    const input = document.createElement(el); 
 
     label.for = id; 
     label.append(labelText); 
-    input.type = type;
+    if (el == 'input') {
+        input.type = type;
+    }
+
+    // handle dates - default value
+    if (type=='date') {
+        input.defaultValue = new Date();
+        input.value = new Date().toISOString().substring(0, 10);
+    };
+
+    if (options.length > 0) {
+        options.forEach(option => {
+            const opt = document.createElement('option'); 
+            opt.innerText = option; 
+            opt.value = option; 
+            input.append(opt); 
+        })
+    }
     input.id = id; 
     label.append(input); 
 
     return label;
 }
+
+function manageAdd() {
+    manageNewItem(); 
+    // close form afterwards
+    let removeItem = document.querySelector('#add-item-form');
+    removeItem.remove(); 
+}; 
