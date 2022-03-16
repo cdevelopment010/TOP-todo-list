@@ -100,12 +100,15 @@ body {
         margin-left: 1rem; 
 
         &:hover {
-            &:before {
+            &::after {
                 position: absolute; 
-                content: '//'; 
+                content: ''; 
                 font-weight: bold;
-                left: -1rem; 
-                top: 0; 
+                left: 0%; 
+                top: 100%;
+                height: 3px; 
+                width: 100%;  
+                background-color: $primary-col-2;
 
             }
         }
@@ -113,12 +116,15 @@ body {
 
     .active {
         font-weight: bold;
-        &:before {
+        &::after {
             position: absolute; 
-            content: '//'; 
+            content: ''; 
             font-weight: bold;
-            left: -1rem; 
-            top: 0; 
+            left: 0%; 
+            top: 100%;
+            height: 3px; 
+            width: 100%;  
+            background-color: $primary-col-2;
 
         }
     }
@@ -273,4 +279,51 @@ body {
         gap: 20px; 
     }
     
+}
+
+
+.overlay {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background: rgba($primary-col-1, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.popup {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    position: fixed; 
+    top: 20%; 
+    bottom: 20%; 
+    left: 20%; 
+    right: 20%; 
+    z-index: 1000; 
+    background-color: $primary-col-2; 
+    padding: 60px; 
+
+    h2 {
+        text-align: center;
+    }
+
+    p {
+        margin: 10px 0; 
+    }
+
+    button {
+        padding: 5px 10px; 
+        border-radius: 5px; 
+        border: 1px solid transparent; 
+        cursor: pointer;
+        background-color: $edit-col; 
+        font-weight: bold; 
+        color: $primary-col-2; 
+
+        &:hover {
+            background-color: $edit-col-2;
+        }
+    }
 }
