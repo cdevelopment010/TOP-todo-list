@@ -1,6 +1,4 @@
 import GenericPage from '../GenericPage.js'; 
-import filterItems from '../filterItems.js';
-import renderPageContent from '../renderPageContent';
 import RefreshPage from '../RefreshPage.js';
 
 export default function navigatateSections() {

@@ -138,6 +138,7 @@ function editItem(text) {
 function seeItem(item) {
     let alreadyStored = JSON.parse(localStorage.getItem('TOP-todo-items'));
     let itemToView = alreadyStored.filter((task) => task.title == item.innerText)[0]; 
-    const newItemPopUp = renderSingleItem(itemToView);  
-    document.getElementById("content-page").append(newItemPopUp); 
+    const {container, overlay} = renderSingleItem(itemToView);  
+    document.body.append(overlay); 
+    document.body.append(container); 
 }

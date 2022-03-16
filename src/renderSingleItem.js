@@ -1,5 +1,9 @@
 export default function renderSingleItem(item) {
 
+    const overlay = document.createElement('div'); 
+    overlay.className = 'overlay'; 
+    overlay.id = 'overlay'; 
+
     const container = document.createElement('div'); 
     const title = document.createElement('h2'); 
     const date = document.createElement('span'); 
@@ -7,37 +11,38 @@ export default function renderSingleItem(item) {
     const desc = document.createElement('div'); 
     const checklist = document.createElement('ul'); 
     const notes = document.createElement('div'); 
-    const completeBtn = document.createElement('button'); 
-    const deleteBtn = document.createElement('button'); 
-    const closeBtn = document.createElement('button'); 
+    const completeBtn = document.createElement('div'); 
+    const deleteBtn = document.createElement('div'); 
+    const closeBtn = document.createElement('div'); 
     const btnGroup = document.createElement('div'); 
 
 
     title.innerText = item.title; 
     date.innerText = item.date; 
-    priority.innerText = item.priority; 
+    priority.innerText = `Priority: ${item.priority}`; 
     desc.innerText = item.description; 
     notes.innerText = item.notes;
     const checkListSplit = item.checklist.split(',') || [];
-    
     // checklist 
-    checklist.append('Checklist:    ')
-    checkListSplit.forEach(check => {
-        const li = document.createElement('li'); 
-        li.innerText = check;
-        li.addEventListener('click', function() {
-            console.log(this.innerText); 
-        }); 
-        checklist.append(li); 
-    })
+    if (checkListSplit[0] != '' ){
+        checklist.append('Checklist:')
+        checkListSplit.forEach(check => {
+            const li = document.createElement('li'); 
+            li.innerText = check;
+            li.addEventListener('click', function() {
+                console.log(this.innerText); 
+            }); 
+            checklist.append(li); 
+        })
+    }
 
 
     // buttons
-    completeBtn.innerText = 'Done'; 
+    completeBtn.innerHTML = '<i class="fa-solid fa-check"></i>'; 
     completeBtn.addEventListener('click', completeTask);
-    deleteBtn.innerText = 'Del'; 
+    deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>'; 
     deleteBtn.addEventListener('click', deleteTask);
-    closeBtn.innerText = 'Close'; 
+    closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; 
     closeBtn.addEventListener('click', closeTask);
 
     btnGroup.append(completeBtn); 
@@ -68,8 +73,9 @@ export default function renderSingleItem(item) {
     container.id = 'single-item-display'
 
     container.classList.add('single-item-display'); 
-
-    return container; 
+    
+    
+    return {container, overlay}; 
 }
 
 
@@ -82,4 +88,5 @@ function deleteTask() {
 }
 function closeTask() {
     document.getElementById('single-item-display').remove(); 
+    document.getElementById('overlay').remove(); 
 }

@@ -9,6 +9,6 @@ import PopUp from './PopUp';
 localStorage.setItem('TOP-current-page', JSON.stringify('Home'));
 GenericPage(renderPageContent, 'home')
 
-setTimeout(() => {
-    PopUp(); 
-}, 1000)
+// setTimeout(() => {
+//     PopUp(); 
+// }, 1000)

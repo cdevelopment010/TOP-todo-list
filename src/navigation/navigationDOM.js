@@ -21,6 +21,7 @@ export default function NavigationDOM() {
 
     // static ul 
     home.innerText = 'Home';
+    home.classList.add('active'); 
     today.innerText = 'Today';
     week.innerText = 'Week';
     completeTasks.innerText = 'Completed';
