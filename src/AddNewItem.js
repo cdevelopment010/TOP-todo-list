@@ -60,12 +60,18 @@ export default function addNewItem(editItem) {
             label: 'Task Project:',
             type: 'select', //probably should be select
             el: 'select', 
-            option: JSON.parse(localStorage.getItem('TOP-project-nav')), 
+            option: JSON.parse(localStorage.getItem('TOP-project-nav')) || '', 
             values: itemToUse.project || ''
         },
     }
     
     title.innerText = 'Add new item'; 
+
+    
+    if (obj.taskProject.option == '' ){
+        alert('Add a project before adding a task.'); 
+        return div; 
+    }
 
     if (editItem != null) {
         for (let task in obj) {
@@ -109,7 +115,7 @@ function closeForm() {
     removeItem.remove(); 
 }
 
-function createInput(id,el, labelText, type, options=[], values='' ) {
+function createInput(id,el, labelText, type, options='', values='' ) {
     const label = document.createElement('label');
     const input = document.createElement(el); 
 
