@@ -9,10 +9,13 @@ export default function NavigationDOM() {
     const completeTasks = document.createElement('li');
     const lateTasks = document.createElement('li');
     const ulProjects = document.createElement('ul'); 
-    const addBtn = document.createElement('button'); 
+    const addBtn = document.createElement('div'); 
     const projectTitle = document.createElement('h2'); 
     const deleteStorageBtn = document.createElement('button'); 
-
+    
+    
+    addBtn.innerHTML = '<i class="fa-solid fa-circle-plus" aria-hidden="true"></i>'
+    addBtn.className="new-item-btn"
 
     projectTitle.innerText = 'Projects'
 
@@ -48,7 +51,6 @@ export default function NavigationDOM() {
         })
     }
 
-    addBtn.innerText = 'add project';
     addBtn.addEventListener('click', () => {
         addItem()
     })
@@ -57,7 +59,9 @@ export default function NavigationDOM() {
     deleteStorageBtn.addEventListener('click', function() {
         localStorage.removeItem('TOP-project-nav'); 
         localStorage.removeItem('TOP-todo-project');
+        localStorage.removeItem('TOP-todo-items'); 
         localStorage.removeItem('TOP-project-colors');
+        localStorage.removeItem('TOP-current-page'); 
         // refresh page - is this a good idea? 
         location.reload(); 
     })

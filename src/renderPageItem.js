@@ -1,6 +1,7 @@
 import AddNewItem from './AddNewItem'; 
 import CompleteItem from './CompleteItem';
 import renderSingleItem from './renderSingleItem';
+import RefreshPage from './RefreshPage';
 
 export default function renderPageItem(items) {
 
@@ -8,7 +9,12 @@ export default function renderPageItem(items) {
     const colors = JSON.parse(localStorage.getItem('TOP-project-colors')) || [];  
     const newItem = document.createElement('div'); 
     newItem.innerHTML = '<i class="fa-solid fa-circle-plus" aria-hidden="true"></i>'
-    newItem.className="new-item-btn"
+    newItem.className="new-item-btn"; 
+    newItem.addEventListener('click', function() {
+        const newItemPopUp = newItemBtn(); 
+        document.body.append(newItemPopUp); 
+        RefreshPage(); 
+    });
 
     //if items are blank return nothing; 
     if (items.length == 0 ) {
@@ -44,6 +50,7 @@ export default function renderPageItem(items) {
         complete.addEventListener('click', (event) => {
             event.stopPropagation();
             completeTask(itemTitle.innerText); 
+            RefreshPage(); 
         })
 
         viewBtn.addEventListener('click', function(event){
@@ -103,10 +110,7 @@ export default function renderPageItem(items) {
     })
 
     
-    newItem.addEventListener('click', function() {
-        const newItemPopUp = newItemBtn(); 
-        document.body.append(newItemPopUp); 
-    });
+    
     
     container.append(newItem); 
 
@@ -116,7 +120,7 @@ export default function renderPageItem(items) {
 function completeTask(item) {
     console.log(item); 
     CompleteItem(item); 
-    location.reload();
+    RefreshPage(); 
 }
 
 function newItemBtn(){
@@ -127,6 +131,7 @@ function editItem(text) {
     let titleToEdit = text.innerText
     const newItemPopUp = AddNewItem(titleToEdit); 
     document.body.append(newItemPopUp); 
+    RefreshPage(); 
 
 }
 

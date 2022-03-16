@@ -1,6 +1,5 @@
 import manageNewItem from "./manageNewItem";
-import renderPageContent from "./renderPageContent";
-import filterItems from "./filterItems";
+import RefreshPage from "./RefreshPage";
 
 export default function addNewItem(editItem) {
 
@@ -150,6 +149,7 @@ function manageAdd() {
     // close form afterwards
     let removeItem = document.querySelector('#add-item-form');
     removeItem.remove(); 
+    RefreshPage(); 
 }; 
 
 function manageEdit(item) {
@@ -176,6 +176,5 @@ function manageEdit(item) {
     let removeItem = document.querySelector('#add-item-form');
     removeItem.remove(); 
     // reload moves back to home page
-    document.querySelector('#content-page').remove(); 
-    document.querySelector('#root .container').append(renderPageContent('home', filterItems('home')));
+    RefreshPage(); 
 }

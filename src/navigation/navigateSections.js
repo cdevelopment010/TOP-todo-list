@@ -1,6 +1,7 @@
 import GenericPage from '../GenericPage.js'; 
 import filterItems from '../filterItems.js';
 import renderPageContent from '../renderPageContent';
+import RefreshPage from '../RefreshPage.js';
 
 export default function navigatateSections() {
 
@@ -27,6 +28,9 @@ function clearActive(item) {
 }
 
 function navToNewPage(page) {
-    document.querySelector('#content-page').remove(); 
-    document.querySelector('#root .container').append(renderPageContent(page, filterItems(page.toLowerCase()))); 
+    //create a local storage for refreshing pages later
+    localStorage.setItem('TOP-current-page', JSON.stringify(page)); 
+    // document.querySelector('#content-page').remove(); 
+    // document.querySelector('#root .container').append(renderPageContent(page, filterItems(page.toLowerCase()))); 
+    RefreshPage(); 
 }
