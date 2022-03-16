@@ -35,7 +35,7 @@ export default function filterItems(project) {
     }
 
     return itemsStored.filter((item) => {
-        return item.project.toLowerCase() == project && item.complete ==  false;
+        return item.project.toLowerCase() == project.toLowerCase() && item.complete ==  false;
     })
 
 }
