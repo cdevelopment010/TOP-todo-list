@@ -1,3 +1,7 @@
+import CompleteItem from "./CompleteItem";
+import RefreshPage from "./RefreshPage";
+import RemoveItem from "./RemoveItem";
+
 export default function renderSingleItem(item) {
 
     const overlay = document.createElement('div'); 
@@ -81,10 +85,16 @@ export default function renderSingleItem(item) {
 
 
 function completeTask() {
-    console.log('done button clicked');
+    const item = document.querySelector('#single-item-display h2').innerText; 
+    CompleteItem(item);
+    closeTask();
+    RefreshPage(); 
 }
 function deleteTask() {
-    console.log('delete button clicked');
+    const item = document.querySelector('#single-item-display h2').innerText; 
+    RemoveItem(item);
+    closeTask();
+    RefreshPage(); 
 }
 function closeTask() {
     document.getElementById('single-item-display').remove(); 

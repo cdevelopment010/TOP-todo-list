@@ -55,12 +55,10 @@ export default function renderPageItem(items) {
 
         viewBtn.addEventListener('click', function(event){
             event.stopPropagation();
-            console.log('view btn clicked'); 
             seeItem(itemTitle); 
         }, true); 
         editBtn.addEventListener('click', function(event){
             event.stopPropagation();
-            console.log('view btn clicked'); 
             editItem(itemTitle); 
         }, true)
 
@@ -80,12 +78,7 @@ export default function renderPageItem(items) {
         // itemContainer.addEventListener('click',  editItem )
         colorBar.classList.add('color-bar'); 
 
-        if (item.project in colors) {
-            console.log(item.project)
-        }
-
-
-
+       
         if (colors.find((x) => Object.keys(x) == item.project) == undefined) {
             colors.push({[item.project]: `rgb(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`});
         }
@@ -118,7 +111,6 @@ export default function renderPageItem(items) {
 }
 
 function completeTask(item) {
-    console.log(item); 
     CompleteItem(item); 
     RefreshPage(); 
 }

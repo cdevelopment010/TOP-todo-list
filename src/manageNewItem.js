@@ -13,11 +13,10 @@ export default function manageNewItem() {
 
 
     const task = ToDoItem(taskTitle, taskDesc, taskDate, taskPriorty, taskNotes, taskChecklist, taskProject); 
-    console.log(task); 
+
 
     //get local storage of items
     itemsStored.push(task); 
     localStorage.setItem('TOP-todo-items', JSON.stringify(itemsStored)); 
-    console.log(localStorage.getItem('TOP-todo-items')); 
     
 }
