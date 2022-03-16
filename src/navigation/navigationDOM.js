@@ -57,6 +57,7 @@ export default function NavigationDOM() {
     deleteStorageBtn.addEventListener('click', function() {
         localStorage.removeItem('TOP-project-nav'); 
         localStorage.removeItem('TOP-todo-project');
+        localStorage.removeItem('TOP-project-colors');
         // refresh page - is this a good idea? 
         location.reload(); 
     })

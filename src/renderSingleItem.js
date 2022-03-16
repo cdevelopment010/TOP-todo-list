@@ -18,10 +18,11 @@ export default function renderSingleItem(item) {
     priority.innerText = item.priority; 
     desc.innerText = item.description; 
     notes.innerText = item.notes;
+    const checkListSplit = item.checklist.split(',') || [];
     
     // checklist 
     checklist.append('Checklist:    ')
-    item.checklist.forEach(check => {
+    checkListSplit.forEach(check => {
         const li = document.createElement('li'); 
         li.innerText = check;
         li.addEventListener('click', function() {
@@ -64,6 +65,8 @@ export default function renderSingleItem(item) {
     container.append(btnGroup);
 
 
+    container.id = 'single-item-display'
+
     container.classList.add('single-item-display'); 
 
     return container; 
@@ -78,5 +81,5 @@ function deleteTask() {
     console.log('delete button clicked');
 }
 function closeTask() {
-    console.log('close button clicked');
+    document.getElementById('single-item-display').remove(); 
 }

@@ -143,15 +143,67 @@
     }
 }
 
+.new-item-btn { 
+    i {
+        font-size: 2rem;
+        color: $add-col;
+        cursor: pointer;
+
+        &:hover {
+            color: $add-col-2; 
+        }
+    }
+}
+
 .item-container {
     display: grid; 
-    grid-template-columns: 1fr 3fr 1fr 1fr;
-    gap: 3px;
+    grid-template-columns: 1fr 3fr 0.1fr 0.1fr 0.1fr;
+    gap: 10px;
     padding: 1rem; 
     margin-bottom: 1rem; 
     border-radius: 10px;
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.25);
+    position: relative;
+    overflow: hidden;
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .color-bar {
+        position: absolute; 
+        height: 100%; 
+        left: 0%; 
+        width: 10px; 
+        background-color: green;
+    }
+
+    .complete-btn {
+        color: $complete-col; 
+        font-size: 1.5rem; 
+        cursor: pointer;
+        &:hover {
+            color: $complete-col-2; 
+        }
+    }
+    .view-btn {
+        color: $view-col; 
+        font-size: 1.5rem; 
+        cursor: pointer;
+        &:hover {
+            color: $view-col-2; 
+        }
+    }
+    .edit-btn {
+        color: $edit-col; 
+        font-size: 1.5rem; 
+        cursor: pointer;
+        &:hover {
+            color: $edit-col-2; 
+        }
+    }
 }
+
 
 .completed-task {
     background-color: rgba($primary-col-1,0.25);
@@ -164,6 +216,12 @@
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.25);
     width: 80%; 
     margin: 1rem auto;
+    position: fixed; 
+    left: 1rem;
+    top: 1rem;
+    right: 1rem;
+    background-color: $primary-col-2;
+
 
     display: grid;
     grid-template-areas: "title . date"

@@ -1,5 +1,6 @@
 import manageNewItem from "./manageNewItem";
-
+import renderPageContent from "./renderPageContent";
+import filterItems from "./filterItems";
 
 export default function addNewItem(editItem) {
 
@@ -74,7 +75,6 @@ export default function addNewItem(editItem) {
         }
         let input = createInput('task-complete', 'select', 'Completed?', 'select', [false, true], false)
         form.append(input)
-        console.log(form); 
     } else {
         for (let task in obj) {
             let input = createInput(obj[task].id, obj[task].el,obj[task].label, obj[task].type, obj[task].option); 
@@ -166,7 +166,6 @@ function manageEdit(item) {
             task.project = document.getElementById('task-project').value;
             task.complete = document.getElementById('task-complete').value == true;
         }
-        console.log(task.title,"|",task.complete); 
     })
 
 
@@ -177,5 +176,6 @@ function manageEdit(item) {
     let removeItem = document.querySelector('#add-item-form');
     removeItem.remove(); 
     // reload moves back to home page
-    // location.reload();
+    document.querySelector('#content-page').remove(); 
+    document.querySelector('#root .container').append(renderPageContent('home', filterItems('home')));
 }
