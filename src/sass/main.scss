@@ -142,6 +142,7 @@ body {
     background-color: $primary-col-2;
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.25);
     padding: 2rem;
+    overflow-y: auto;
 
 
     form {
@@ -156,6 +157,28 @@ body {
     button {
         margin: 1rem 1rem 1rem 0;
     }
+
+    .closeBtn, .completeBtn {
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    
+    .completeBtn {
+        color:$complete-col; 
+
+        &:hover {
+            color: $complete-col-2
+        }
+    }
+
+    .closeBtn {
+        color: $warning-col; 
+
+        &:hover {
+            color: $warning-col-2
+        }
+    }
+
 }
 
 .new-item-btn { 
@@ -229,6 +252,12 @@ body {
     text-decoration: line-through;
 }
 
+.btn-group {
+    justify-self: center;
+    display: flex; 
+    gap: 20px; 
+}
+
 .single-item-display {
     padding: 2rem; 
     border-radius: 10px; 
@@ -244,11 +273,7 @@ body {
     gap:20px; 
 
    
-    .btn-group {
-        justify-self: center;
-        display: flex; 
-        gap: 20px; 
-    }
+    
 
     .closeBtn, .completeBtn, .deleteBtn {
         font-size: 2rem;

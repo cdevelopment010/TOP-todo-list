@@ -11,8 +11,9 @@ export default function renderPageItem(items) {
     newItem.innerHTML = '<i class="fa-solid fa-circle-plus" aria-hidden="true"></i>'
     newItem.className="new-item-btn"; 
     newItem.addEventListener('click', function() {
-        const newItemPopUp = newItemBtn(); 
-        document.body.append(newItemPopUp); 
+        const {div, overlay} = newItemBtn(); 
+        document.body.append(overlay); 
+        document.body.append(div);  
         RefreshPage(); 
     });
 

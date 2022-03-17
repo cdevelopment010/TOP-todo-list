@@ -3,11 +3,17 @@ import RefreshPage from "./RefreshPage";
 
 export default function addNewItem(editItem) {
 
+
+    const overlay = document.createElement('div'); 
+    overlay.className = 'overlay'; 
+    overlay.id = 'overlay'; 
+
     const div = document.createElement('div'); 
     const title = document.createElement('h2');
     const form = document.createElement('form');
-    const addBtn = document.createElement('button');
-    const closeBtn = document.createElement('button');
+    const addBtn = document.createElement('div');
+    const closeBtn = document.createElement('div');
+    const buttonGroup = document.createElement('div'); 
 
     let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
     let itemToUse = itemsStored.filter((task) => task.title === editItem)[0] || '';
@@ -90,7 +96,7 @@ export default function addNewItem(editItem) {
 
     
     
-    addBtn.innerText = 'Add'; 
+    addBtn.innerHTML = '<i class="fa-solid fa-check"></i>'; 
     addBtn.addEventListener('click', () => {
         if (editItem != null) {
             manageEdit(editItem); 
@@ -98,21 +104,27 @@ export default function addNewItem(editItem) {
             manageAdd(); 
         }
     });
-    closeBtn.innerText = 'Close'; 
+    closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; 
     closeBtn.addEventListener('click', closeForm);
 
+    addBtn.className = 'completeBtn'
+    closeBtn.className = 'closeBtn'
+    buttonGroup.append(addBtn); 
+    buttonGroup.append(closeBtn); 
+
+    buttonGroup.className = 'btn-group'
     div.append(title); 
     div.append(form); 
-    div.append(addBtn); 
-    div.append(closeBtn); 
+    div.append(buttonGroup); 
     div.className = 'add-item'; 
     div.id = 'add-item-form'
-    return div; 
+    return {div, overlay}; 
 }
 
 function closeForm() {
     let removeItem = document.querySelector('#add-item-form');
     removeItem.remove(); 
+    document.getElementById('overlay').remove(); 
 }
 
 function createInput(id,el, labelText, type, options='', values='' ) {
@@ -153,8 +165,7 @@ function createInput(id,el, labelText, type, options='', values='' ) {
 function manageAdd() {
     manageNewItem(); 
     // close form afterwards
-    let removeItem = document.querySelector('#add-item-form');
-    removeItem.remove(); 
+    closeForm();
     RefreshPage(); 
 }; 
 
@@ -179,8 +190,7 @@ function manageEdit(item) {
     localStorage.setItem('TOP-todo-items', JSON.stringify(itemsStored)); 
 
     // close form afterwards
-    let removeItem = document.querySelector('#add-item-form');
-    removeItem.remove(); 
+    closeForm();
     // reload moves back to home page
     RefreshPage(); 
 }
