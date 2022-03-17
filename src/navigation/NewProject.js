@@ -1,5 +1,11 @@
 import navigatateSections from "./navigateSections";
 export default function NewProject() {
+
+
+    const overlay = document.createElement('div'); 
+    overlay.className = 'overlay'; 
+    overlay.id = 'overlay'; 
+
     const popup = document.createElement('div'); 
     const title = document.createElement('h2'); 
     const labelStr = document.createElement('label');
@@ -27,13 +33,12 @@ export default function NewProject() {
     popup.id = 'project-popup'
     
 
-    return popup; 
+    return {popup, overlay}; 
 
 }
 
 
 function addItem() {
-    console.log('add item to projects'); 
     let item = document.createElement('li'); 
     item.innerText = document.querySelector('#project-popup input').value; 
 
@@ -49,7 +54,7 @@ function addItem() {
 
     if (update) {
         document.querySelector('#project-nav').append(item); 
-        document.querySelector('#project-popup').remove(); 
+        closePopup();
         updateLocalStorage(); 
         navigatateSections(); 
     }
@@ -62,6 +67,7 @@ function addItem() {
 
 function closePopup() {
     document.querySelector('#project-popup').remove(); 
+    document.querySelector('#overlay').remove();
 }
 
 function updateLocalStorage() { 

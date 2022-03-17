@@ -78,5 +78,7 @@ export default function NavigationDOM() {
 }
 
 function addItem() {
-    document.querySelector('#root').append(NewProject()); 
+    const {popup, overlay} = NewProject();
+    document.body.append(overlay); 
+    document.body.append(popup); 
 }
