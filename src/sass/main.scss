@@ -272,6 +272,10 @@ body {
     display: grid;
     gap:20px; 
 
+
+    li {
+        cursor:crosshair;
+    }
    
     
 
@@ -302,6 +306,10 @@ body {
             color: $view-col-2;
             animation: spin 0.2s;
         }
+    }
+
+    .strikethrough {
+        text-decoration: line-through;
     }
 }
 

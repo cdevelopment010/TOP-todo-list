@@ -30,8 +30,9 @@ export default function renderSingleItem(item) {
         checkListSplit.forEach(check => {
             const li = document.createElement('li'); 
             li.innerText = check;
+            checkStrikeThrough(li); 
             li.addEventListener('click', function() {
-                console.log(this.innerText); 
+                handleStrikeThrough(li); 
             }); 
             checklist.append(li); 
         })
@@ -45,6 +46,12 @@ export default function renderSingleItem(item) {
     deleteBtn.addEventListener('click', deleteTask);
     closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; 
     closeBtn.addEventListener('click', () => {closePopup('#single-item-display');});
+
+
+    // Add tooltips to btns
+    completeBtn.title = 'Complete'; 
+    deleteBtn.title = 'Delete'; 
+    closeBtn.title = 'Close'; 
 
     btnGroup.append(completeBtn); 
     btnGroup.append(deleteBtn); 
@@ -92,4 +99,27 @@ function deleteTask() {
     RemoveItem(item);
     closePopup('#single-item-display');
     RefreshPage(); 
+}
+function checkStrikeThrough(item) {
+    const itemsStriked = JSON.parse(localStorage.getItem('TOP-striked-items')) || []; 
+    if (itemsStriked.indexOf(item.innerText) != -1 ) {
+        item.classList.add('strikethrough'); 
+    }
+}
+
+function handleStrikeThrough(item) {
+    const itemsStriked = JSON.parse(localStorage.getItem('TOP-striked-items')) || []; 
+    let newItems =[]; 
+    if (itemsStriked.indexOf(item.innerText) != -1  ) {
+        newItems = itemsStriked.filter(x => {
+            return x != item.innerText
+        })
+        item.classList.toggle('strikethrough'); 
+    } else {
+        newItems = itemsStriked.map(z => z); 
+        newItems.push(item.innerText); 
+        item.classList.toggle('strikethrough'); 
+    }
+    localStorage.setItem('TOP-striked-items', JSON.stringify(newItems)); 
+
 }

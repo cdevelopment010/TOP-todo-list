@@ -107,8 +107,14 @@ export default function addNewItem(editItem) {
     closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; 
     closeBtn.addEventListener('click', ()=>{closePopup('#add-item-form')});
 
-    addBtn.className = 'completeBtn'
-    closeBtn.className = 'closeBtn'
+    addBtn.className = 'completeBtn';
+    if (editItem != null) {
+        addBtn.title = 'Edit Task';
+    } else {
+        addBtn.title = 'Add Task';
+    }
+    closeBtn.className = 'closeBtn';
+    closeBtn.title = 'Close';
     buttonGroup.append(addBtn); 
     buttonGroup.append(closeBtn); 
 

@@ -45,6 +45,11 @@ export default function renderPageItem(items) {
         editBtn.className = 'edit-btn'; 
         itemTitle.innerText = item.title;
         itemDate.innerText = item.date; 
+
+        // Add tooltips to btns
+        complete.title = 'Complete'; 
+        viewBtn.title = 'View'; 
+        editBtn.title = 'Edit'; 
         
 
         // button event listener
@@ -122,8 +127,10 @@ function newItemBtn(){
 
 function editItem(text) {
     let titleToEdit = text.innerText
-    const newItemPopUp = AddNewItem(titleToEdit); 
-    document.body.append(newItemPopUp); 
+    const {div, overlay} = AddNewItem(titleToEdit); 
+    // document.body.append(newItemPopUp); 
+    document.body.append(overlay); 
+    document.body.append(div); 
     RefreshPage(); 
 
 }
@@ -131,7 +138,7 @@ function editItem(text) {
 function seeItem(item) {
     let alreadyStored = JSON.parse(localStorage.getItem('TOP-todo-items'));
     let itemToView = alreadyStored.filter((task) => task.title == item.innerText)[0]; 
-    const {container, overlay} = renderSingleItem(itemToView);  
+    const {container, overlay} = renderSingleItem(itemToView); 
     document.body.append(overlay); 
     document.body.append(container); 
 }
