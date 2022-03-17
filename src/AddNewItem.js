@@ -1,7 +1,7 @@
 import manageNewItem from "./manageNewItem";
 import RefreshPage from "./RefreshPage";
 import overlay from "./overlay";
-import closeForm from "./closePopup";
+import closePopup from "./closePopup";
 
 
 //add new task 
@@ -105,7 +105,7 @@ export default function addNewItem(editItem) {
         }
     });
     closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; 
-    closeBtn.addEventListener('click', ()=>{closeForm('#add-item-form')});
+    closeBtn.addEventListener('click', ()=>{closePopup('#add-item-form')});
 
     addBtn.className = 'completeBtn'
     closeBtn.className = 'closeBtn'
@@ -162,7 +162,7 @@ function createInput(id,el, labelText, type, options='', values='' ) {
 //Manages adding task to local storage
 function manageAdd() {
     manageNewItem(); 
-    closeForm();
+    closePopup('#add-item-form');
     RefreshPage(); 
 }; 
 
@@ -186,7 +186,7 @@ function manageEdit(item) {
     localStorage.setItem('TOP-todo-items', JSON.stringify(itemsStored)); 
 
     // close form afterwards
-    closeForm('#add-item-form');
+    closePopup('#add-item-form');
     // reload moves back to home page
     RefreshPage(); 
 }

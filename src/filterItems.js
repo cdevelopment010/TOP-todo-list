@@ -2,7 +2,8 @@ export default function filterItems(project) {
 
     let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
     
-
+    // I think this fails SOLID - rather than doing if statements it should be able to handle anything?
+    
     if (project == 'home') {
         return itemsStored.filter((item) => {
             return item.complete ==  false;

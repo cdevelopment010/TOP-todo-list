@@ -1,11 +1,7 @@
 import navigatateSections from "./navigateSections";
+import closePopup from "../closePopup";
+import overlay from "../overlay";
 export default function NewProject() {
-
-
-    const overlay = document.createElement('div'); 
-    overlay.className = 'overlay'; 
-    overlay.id = 'overlay'; 
-
     const popup = document.createElement('div'); 
     const title = document.createElement('h2'); 
     const labelStr = document.createElement('label');
@@ -22,7 +18,7 @@ export default function NewProject() {
     closeBtn.innerText = 'close';
 
     addBtn.addEventListener('click', addItem); 
-    closeBtn.addEventListener('click', closePopup); 
+    closeBtn.addEventListener('click', () => {closePopup('#project-popup')}); 
 
     title.innerText = 'Add new project'
 
@@ -33,7 +29,7 @@ export default function NewProject() {
     popup.id = 'project-popup'
     
 
-    return {popup, overlay}; 
+    return {popup, overlay: overlay()}; 
 
 }
 
@@ -54,7 +50,7 @@ function addItem() {
 
     if (update) {
         document.querySelector('#project-nav').append(item); 
-        closePopup();
+        closePopup('#project-popup');
         updateLocalStorage(); 
         navigatateSections(); 
     }
@@ -63,11 +59,6 @@ function addItem() {
         alert('project name already exists'); 
     }
     
-}
-
-function closePopup() {
-    document.querySelector('#project-popup').remove(); 
-    document.querySelector('#overlay').remove();
 }
 
 function updateLocalStorage() { 

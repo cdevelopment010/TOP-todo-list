@@ -1,13 +1,10 @@
 import CompleteItem from "./CompleteItem";
 import RefreshPage from "./RefreshPage";
 import RemoveItem from "./RemoveItem";
+import closePopup from "./closePopup";
+import overlay from "./overlay";
 
 export default function renderSingleItem(item) {
-
-    const overlay = document.createElement('div'); 
-    overlay.className = 'overlay'; 
-    overlay.id = 'overlay'; 
-
     const container = document.createElement('div'); 
     const title = document.createElement('h2'); 
     const date = document.createElement('span'); 
@@ -47,7 +44,7 @@ export default function renderSingleItem(item) {
     deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>'; 
     deleteBtn.addEventListener('click', deleteTask);
     closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; 
-    closeBtn.addEventListener('click', closeTask);
+    closeBtn.addEventListener('click', () => {closePopup('#single-item-display');});
 
     btnGroup.append(completeBtn); 
     btnGroup.append(deleteBtn); 
@@ -79,7 +76,7 @@ export default function renderSingleItem(item) {
     container.classList.add('single-item-display'); 
     
     
-    return {container, overlay}; 
+    return {container, overlay: overlay()}; 
 }
 
 
@@ -87,16 +84,12 @@ export default function renderSingleItem(item) {
 function completeTask() {
     const item = document.querySelector('#single-item-display h2').innerText; 
     CompleteItem(item);
-    closeTask();
+    closePopup('#single-item-display');
     RefreshPage(); 
 }
 function deleteTask() {
     const item = document.querySelector('#single-item-display h2').innerText; 
     RemoveItem(item);
-    closeTask();
+    closePopup('#single-item-display');
     RefreshPage(); 
-}
-function closeTask() {
-    document.getElementById('single-item-display').remove(); 
-    document.getElementById('overlay').remove(); 
 }
