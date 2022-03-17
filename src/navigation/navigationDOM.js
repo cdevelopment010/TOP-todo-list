@@ -63,6 +63,7 @@ export default function NavigationDOM() {
         localStorage.removeItem('TOP-todo-items'); 
         localStorage.removeItem('TOP-project-colors');
         localStorage.removeItem('TOP-current-page'); 
+        localStorage.removeItem('TOP-popup-message');
         // refresh page - is this a good idea? 
         location.reload(); 
     })

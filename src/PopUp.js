@@ -15,7 +15,7 @@ export default function PopUp() {
 
 
     title.innerText = 'Hey!'; 
-    para1.innerText = `A little heads up that this site uses local storage to store your tasks. What this means is that you can't view tasks over different devices or web browsers - sorry!`; 
+    para1.innerText = `A little heads up that this site uses local storage to store your tasks. What this means is that you can't view tasks over different devices or web browsers - sorry!\nAlso, to start you need to add a project before adding a task.`; 
 
     strongTag.innerText = 'Shameless plug...';
     para2.append(strongTag); 
@@ -46,4 +46,5 @@ export default function PopUp() {
 function closePopUp() {
     document.getElementById('overlay').remove(); 
     document.getElementById('popup').remove(); 
+    localStorage.setItem('TOP-popup-message',JSON.stringify('true'))
 }
