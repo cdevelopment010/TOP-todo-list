@@ -1,13 +1,13 @@
 import manageNewItem from "./manageNewItem";
 import RefreshPage from "./RefreshPage";
+import overlay from "./overlay";
+import closeForm from "./closePopup";
 
+
+//add new task 
+//Creates a popup
+//Handles adding and closing form
 export default function addNewItem(editItem) {
-
-
-    const overlay = document.createElement('div'); 
-    overlay.className = 'overlay'; 
-    overlay.id = 'overlay'; 
-
     const div = document.createElement('div'); 
     const title = document.createElement('h2');
     const form = document.createElement('form');
@@ -105,7 +105,7 @@ export default function addNewItem(editItem) {
         }
     });
     closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; 
-    closeBtn.addEventListener('click', closeForm);
+    closeBtn.addEventListener('click', ()=>{closeForm('#add-item-form')});
 
     addBtn.className = 'completeBtn'
     closeBtn.className = 'closeBtn'
@@ -118,15 +118,11 @@ export default function addNewItem(editItem) {
     div.append(buttonGroup); 
     div.className = 'add-item'; 
     div.id = 'add-item-form'
-    return {div, overlay}; 
+    return {div, overlay: overlay()}; 
 }
 
-function closeForm() {
-    let removeItem = document.querySelector('#add-item-form');
-    removeItem.remove(); 
-    document.getElementById('overlay').remove(); 
-}
 
+//Used to create form inputs on popup
 function createInput(id,el, labelText, type, options='', values='' ) {
     const label = document.createElement('label');
     const input = document.createElement(el); 
@@ -162,13 +158,16 @@ function createInput(id,el, labelText, type, options='', values='' ) {
     return label;
 }
 
+
+//Manages adding task to local storage
 function manageAdd() {
     manageNewItem(); 
-    // close form afterwards
     closeForm();
     RefreshPage(); 
 }; 
 
+
+//Edits an  item and updates local storage
 function manageEdit(item) {
 
     let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
@@ -184,13 +183,10 @@ function manageEdit(item) {
             task.complete = document.getElementById('task-complete').value == true;
         }
     })
-
-
-
     localStorage.setItem('TOP-todo-items', JSON.stringify(itemsStored)); 
 
     // close form afterwards
-    closeForm();
+    closeForm('#add-item-form');
     // reload moves back to home page
     RefreshPage(); 
 }
