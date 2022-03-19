@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,700;0,900;1,400&display=swap');
 @import './variables.scss'; 
+@import './mixins.scss';
 
 * {
     margin: 0; 
@@ -17,29 +18,73 @@ body {
 
     min-height: 100vh; 
     display: grid; 
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: 0.5fr 4fr;
-    grid-template-areas: "nav header"
-        "nav content"
+
+
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content max-content 1fr;
+    grid-template-areas: "header"
+        "nav"
+        "content"
     ;
+
+    @include resize(laptop) {
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: 0.5fr 4fr;
+        grid-template-areas: "nav header"
+            "nav content"
+        ;
+    }
+
+
+    
     header {
+        position: relative; 
         grid-area: header;
         h1 {
             text-align: center;
+            margin: 10px 35px; 
         }
+
+        #burger {
+            position: absolute; 
+            right: 25px; 
+            font-size: 2rem;
+            bottom: 0;  
+
+            @include resize('laptop') {
+                display: none; 
+            }
+        }
+
+        &::after {
+            content: ''; 
+            position: absolute; 
+            width: 100%;
+            height: 4px; 
+            background-color: $primary-col-1;
+        }
+
+
     }
 
     .navigation {
-        font-size: 2rem;
-        height: 100%; 
-        background-color:$primary-col-1; 
-        color: $primary-col-2; 
-        grid-area: nav;
-        padding: 1.5rem;
-        align-self: center;
-        display: flex; 
-        flex-direction: column;
-        gap: 25px;
+
+        display: none; 
+
+        @include resize('laptop') {
+            font-size: 2rem;
+            height: 100%; 
+            background-color:$primary-col-1; 
+            color: $primary-col-2; 
+            grid-area: nav;
+            padding: 1.5rem;
+            align-self: center;
+            display: flex; 
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        
 
 
         button {
@@ -66,6 +111,19 @@ body {
                 background-color: $warning-col-2;
             }
         }
+    }
+
+    .sm-screen {
+        font-size: 2rem;
+        height: 100%; 
+        background-color:$primary-col-1; 
+        color: $primary-col-2; 
+        grid-area: nav;
+        padding: 1.5rem;
+        align-self: center;
+        display: flex; 
+        flex-direction: column;
+        gap: 25px;
     }
 
     
@@ -338,13 +396,22 @@ body {
     flex-direction: column;
     justify-content: center;
     position: fixed; 
-    top: 20%; 
-    bottom: 20%; 
-    left: 20%; 
-    right: 20%; 
+    top: 5%; 
+    bottom: 5%; 
+    left: 5%; 
+    right: 5%; 
     z-index: 1000; 
     background-color: $primary-col-2; 
-    padding: 60px; 
+    padding: 10px; 
+    overflow: auto;
+
+    @include resize('laptop') {
+        padding: 60px; 
+        top: 20%; 
+        bottom: 20%; 
+        left: 20%; 
+        right: 20%; 
+    }
 
     h2 {
         text-align: center;

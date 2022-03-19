@@ -13,7 +13,6 @@ export default function NavigationDOM() {
     const projectTitle = document.createElement('h2'); 
     const deleteStorageBtn = document.createElement('button'); 
     
-    
     addBtn.innerHTML = '<i class="fa-solid fa-circle-plus" aria-hidden="true"></i>'
     addBtn.className="new-item-btn"
 
@@ -83,3 +82,4 @@ function addItem() {
     document.body.append(overlay); 
     document.body.append(popup); 
 }
+

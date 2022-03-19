@@ -10,10 +10,16 @@ export default function GenericPage(project, name, items) {
     const title = document.createElement('h1'); 
     const sidebar = new NavigationDOM(); 
     const content = new project(name, filterItems(name)); 
+    const burgerBar = document.createElement('div'); 
+
+    burgerBar.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    burgerBar.id = 'burger'; 
+    burgerBar.addEventListener('click', displayNav); 
 
     title.innerText = 'To Do List | The Odin Project'
 
     header.append(title); 
+    header.append(burgerBar)
     page.className = 'container'; 
 
 
@@ -26,4 +32,10 @@ export default function GenericPage(project, name, items) {
     root.textContent = ''; 
     root.append(page); 
     navigatateSections(); 
+}
+
+
+function displayNav() {
+    let nav = document.querySelector('nav');
+    nav.classList.toggle('sm-screen');  
 }

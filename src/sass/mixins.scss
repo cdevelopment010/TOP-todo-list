@@ -1,0 +1,18 @@
+@mixin resize($size) {
+
+    @if $size == 'tablet' {
+        @media screen and (min-width: 48em) {
+            @content; 
+        }
+    }
+    @if $size == 'laptop' {
+        @media screen and (min-width: 64em) {
+            @content; 
+        }
+    }
+    @if $size == 'desktop' {
+        @media screen and (min-width: 90em) {
+            @content; 
+        }
+    }
+}
