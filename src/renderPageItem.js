@@ -11,8 +11,7 @@ export default function renderPageItem(items) {
     newItem.innerHTML = '<i class="fa-solid fa-circle-plus" aria-hidden="true"></i>'
     newItem.className="new-item-btn"; 
     newItem.addEventListener('click', function() {
-        const {div, overlay} = newItemBtn(); 
-        document.body.append(overlay); 
+        const {div, overlay} = AddNewItem();
         document.body.append(div);  
         RefreshPage(); 
     });
@@ -20,7 +19,7 @@ export default function renderPageItem(items) {
     //if items are blank return nothing; 
     if (items.length == 0 ) {
         container.append(newItem); 
-        return container
+        return container;
     }    
 
     //sort items in date order
@@ -121,9 +120,9 @@ function completeTask(item) {
     RefreshPage(); 
 }
 
-function newItemBtn(){
-    return AddNewItem(); 
-}
+// function newItemBtn(){
+//     return AddNewItem(); 
+// }
 
 function editItem(text) {
     let titleToEdit = text.innerText

@@ -76,7 +76,7 @@ export default function addNewItem(editItem) {
     
     if (obj.taskProject.option == '' ){
         alert('Add a project before adding a task.'); 
-        return div; 
+        return {div, overlay: overlay()}; 
     }
 
     if (editItem != null) {
