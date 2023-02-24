@@ -2,12 +2,13 @@ import manageNewItem from "./manageNewItem";
 import RefreshPage from "./RefreshPage";
 import overlay from "./overlay";
 import closePopup from "./closePopup";
+import firebaseFile from './firebase';
 
 
 //add new task 
 //Creates a popup
 //Handles adding and closing form
-export default function addNewItem(editItem) {
+export default async function addNewItem(editItem) {
     const div = document.createElement('div'); 
     const title = document.createElement('h2');
     const form = document.createElement('form');
@@ -15,8 +16,10 @@ export default function addNewItem(editItem) {
     const closeBtn = document.createElement('div');
     const buttonGroup = document.createElement('div'); 
 
-    let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
+    // let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
+    let itemsStored = await firebaseFile.readData() || []; 
     let itemToUse = itemsStored.filter((task) => task.title === editItem)[0] || '';
+
     const obj = {
         taskName: {
             id: 'task-name', 
@@ -79,6 +82,7 @@ export default function addNewItem(editItem) {
         return {div, overlay: overlay()}; 
     }
 
+    
     if (editItem != null) {
         for (let task in obj) {
             let input = createInput(obj[task].id, obj[task].el,obj[task].label, obj[task].type, obj[task].option, obj[task].values); 
@@ -98,6 +102,7 @@ export default function addNewItem(editItem) {
     
     addBtn.innerHTML = '<i class="fa-solid fa-check"></i>'; 
     addBtn.addEventListener('click', () => {
+
         if (editItem != null) {
             manageEdit(editItem); 
         } else {
@@ -166,31 +171,32 @@ function createInput(id,el, labelText, type, options='', values='' ) {
 
 
 //Manages adding task to local storage
-function manageAdd() {
-    manageNewItem(); 
+async function manageAdd() {
+    await manageNewItem(); 
     closePopup('#add-item-form');
-    RefreshPage(); 
+    await RefreshPage(); 
 }; 
 
 
 //Edits an  item and updates local storage
-function manageEdit(item) {
+async function manageEdit(item) {
 
-    let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
-    itemsStored.map((task)=>{
-        if (task.title === item) {
-            task.title = document.getElementById('task-name').value;
-            task.description = document.getElementById('task-desc').value;
-            task.date = document.getElementById('task-date').value;
-            task.priorty = document.getElementById('task-priorty').value;
-            task.notes = document.getElementById('task-notes').value;
-            task.checklist = document.getElementById('task-checklist').value;
-            task.project = document.getElementById('task-project').value;
-            task.complete = document.getElementById('task-complete').value == true;
-        }
-    })
-    localStorage.setItem('TOP-todo-items', JSON.stringify(itemsStored)); 
+    let itemsStored = await firebaseFile.readData() || []; 
+    let editItem = itemsStored.filter(i => i.title == item); 
 
+    let updatedItem = {
+        title: document.getElementById('task-name').value,
+        description: document.getElementById('task-desc').value,
+        date: document.getElementById('task-date').value,
+        priority: document.getElementById('task-priorty').value,
+        notes: document.getElementById('task-notes').value,
+        checklist: document.getElementById('task-checklist').value,
+        project: document.getElementById('task-project').value,
+        complete: document.getElementById('task-complete').value == true
+    }
+    // localStorage.setItem('TOP-todo-items', JSON.stringify(itemsStored)); 
+
+    await firebaseFile.editDoc(editItem[0].id, updatedItem)
     // close form afterwards
     closePopup('#add-item-form');
     // reload moves back to home page

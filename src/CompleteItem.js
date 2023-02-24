@@ -1,15 +1,22 @@
-export default function CompleteItem(item) {
+import firebaseFile from './firebase';
 
-    let currentItem = JSON.parse(localStorage.getItem('TOP-todo-items')); 
+
+export default async function CompleteItem(item) {
+    console.log(item);
+    // let data = 
+    await firebaseFile.completeDoc(item);
+
     
-    currentItem.map((task) => {
-        if (task.title === item) {
-            task.complete = true; 
-        }
-    }); 
+    // let currentItem = JSON.parse(localStorage.getItem('TOP-todo-items')); 
+    
+    // currentItem.map((task) => {
+    //     if (task.title === item) {
+    //         task.complete = true; 
+    //     }
+    // }); 
 
     //set back to localStorage
-    localStorage.setItem('TOP-todo-items', JSON.stringify(currentItem)); 
+    // localStorage.setItem('TOP-todo-items', JSON.stringify(currentItem)); 
     
     
 

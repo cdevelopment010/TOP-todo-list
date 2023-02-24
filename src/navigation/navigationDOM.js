@@ -1,6 +1,7 @@
 import NewProject from "./NewProject";
+import firebaseFile from '../firebase';
 
-export default function NavigationDOM() {
+export default async function NavigationDOM() {
     const nav = document.createElement('nav');
     const ulStatic = document.createElement('ul') 
     const home = document.createElement('li'); 
@@ -11,7 +12,6 @@ export default function NavigationDOM() {
     const ulProjects = document.createElement('ul'); 
     const addBtn = document.createElement('div'); 
     const projectTitle = document.createElement('h2'); 
-    const deleteStorageBtn = document.createElement('button'); 
     
     addBtn.innerHTML = '<i class="fa-solid fa-circle-plus" aria-hidden="true"></i>'
     addBtn.className="new-item-btn"
@@ -39,12 +39,25 @@ export default function NavigationDOM() {
 
     ulProjects.append(projectTitle); 
     ulProjects.id = 'project-nav'
+    
+
+    async function getProjects() {
+        let storedData = await firebaseFile.readData() || [];
+        let projects = storedData.map( d => {
+            return d.project;
+        })
+        const projectsUnique = [...new Set(projects)];
+        return projectsUnique
+    }
+
+    const projects = await getProjects();
 
     //check local storage for projects
     if (localStorage.getItem('TOP-project-nav')) {
-        const alreadyStored = JSON.parse(localStorage.getItem('TOP-project-nav'));
+        // const alreadyStored = JSON.parse(localStorage.getItem('TOP-project-nav'));
 
-        alreadyStored.forEach(item => {
+
+        projects.forEach(item => {
             const li = document.createElement('li'); 
             li.innerText = item; 
             ulProjects.append(li); 
@@ -55,24 +68,11 @@ export default function NavigationDOM() {
         addItem()
     })
 
-    deleteStorageBtn.innerText = 'warning: delete all stroage?'; 
-    deleteStorageBtn.addEventListener('click', function() {
-        localStorage.removeItem('TOP-project-nav'); 
-        localStorage.removeItem('TOP-todo-project');
-        localStorage.removeItem('TOP-todo-items'); 
-        localStorage.removeItem('TOP-project-colors');
-        localStorage.removeItem('TOP-current-page'); 
-        localStorage.removeItem('TOP-popup-message');
-        localStorage.removeItem('TOP-striked-items');
-        // refresh page - is this a good idea? 
-        location.reload(); 
-    })
-    deleteStorageBtn.className='warning-btn'
+
 
     nav.append(ulStatic)
     nav.append(ulProjects); 
     nav.append(addBtn);
-    nav.append(deleteStorageBtn); 
     
     return nav; 
 }

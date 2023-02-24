@@ -2,6 +2,7 @@ import AddNewItem from './AddNewItem';
 import CompleteItem from './CompleteItem';
 import renderSingleItem from './renderSingleItem';
 import RefreshPage from './RefreshPage';
+import firebaseFile from './firebase';
 
 export default function renderPageItem(items) {
 
@@ -10,10 +11,10 @@ export default function renderPageItem(items) {
     const newItem = document.createElement('div'); 
     newItem.innerHTML = '<i class="fa-solid fa-circle-plus" aria-hidden="true"></i>'
     newItem.className="new-item-btn"; 
-    newItem.addEventListener('click', function() {
-        const {div, overlay} = AddNewItem();
+    newItem.addEventListener('click', async function() {
+        const {div, overlay} = await AddNewItem();
         document.body.append(div);  
-        RefreshPage(); 
+        // RefreshPage(); 
     });
 
     //if items are blank return nothing; 
@@ -21,6 +22,7 @@ export default function renderPageItem(items) {
         container.append(newItem); 
         return container;
     }    
+
 
     //sort items in date order
     items.sort((a, b) => a.date > b.date ? 1 : -1); 
@@ -54,7 +56,7 @@ export default function renderPageItem(items) {
         // button event listener
         complete.addEventListener('click', (event) => {
             event.stopPropagation();
-            completeTask(itemTitle.innerText); 
+            completeTask(item); 
             RefreshPage(); 
         })
 
@@ -124,9 +126,9 @@ function completeTask(item) {
 //     return AddNewItem(); 
 // }
 
-function editItem(text) {
+async function editItem(text) {
     let titleToEdit = text.innerText
-    const {div, overlay} = AddNewItem(titleToEdit); 
+    const {div, overlay} = await AddNewItem(titleToEdit); 
     // document.body.append(newItemPopUp); 
     document.body.append(overlay); 
     document.body.append(div); 
@@ -134,8 +136,9 @@ function editItem(text) {
 
 }
 
-function seeItem(item) {
-    let alreadyStored = JSON.parse(localStorage.getItem('TOP-todo-items'));
+async function seeItem(item) {
+    // let alreadyStored = JSON.parse(localStorage.getItem('TOP-todo-items'));
+    let alreadyStored = await firebaseFile.readData();
     let itemToView = alreadyStored.filter((task) => task.title == item.innerText)[0]; 
     const {container, overlay} = renderSingleItem(itemToView); 
     document.body.append(overlay); 

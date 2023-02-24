@@ -1,8 +1,10 @@
 import ToDoItem from "./ToDoItem";
-export default function manageNewItem() {
+import firebaseFile from "./firebase";
 
+// const firebaseFile = require('./filterItems'); 
 
-    let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
+export default async function manageNewItem() {
+
     const taskTitle = document.getElementById('task-name').value;
     const taskDesc = document.getElementById('task-desc').value;
     const taskDate = document.getElementById('task-date').value;
@@ -12,11 +14,14 @@ export default function manageNewItem() {
     const taskProject = document.getElementById('task-project').value;
 
 
+
+    //firebase
+    let querySnapshot = await firebaseFile.readData();
+
     const task = ToDoItem(taskTitle, taskDesc, taskDate, taskPriorty, taskNotes, taskChecklist, taskProject); 
 
 
-    //get local storage of items
-    itemsStored.push(task); 
-    localStorage.setItem('TOP-todo-items', JSON.stringify(itemsStored)); 
+    //add to firestore
+    await firebaseFile.addDataToFirestore(task);
     
 }

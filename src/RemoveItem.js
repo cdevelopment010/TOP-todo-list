@@ -1,15 +1,7 @@
-export default function RemoveItem(item) {
+import firebaseFile from './firebase';
 
-    let currentItem = JSON.parse(localStorage.getItem('TOP-todo-items')); 
-    
-    let newItems = currentItem.filter((task) => {
-        return task.title != item; 
-    }); 
-    
-    //set back to localStorage
-    localStorage.setItem('TOP-todo-items', JSON.stringify(newItems)); 
-    
-    
-
-
+export default async function RemoveItem(item) {
+    let itemsStored = await firebaseFile.readData() || []; 
+    let removeItem = itemsStored.filter(i => i.title == item); 
+    await firebaseFile.removeDoc(removeItem[0]);
 }
