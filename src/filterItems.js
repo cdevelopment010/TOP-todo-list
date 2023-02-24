@@ -1,12 +1,20 @@
-export default function filterItems(project) {
 
-    let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
-    
+import firebaseFile from './firebase';
+
+export default  async function filterItems(project) {
+
+
+    //Add firebase snapshot here. 
+    let itemsStored = await firebaseFile.readData() || [];
+
+    //below is using local storage
+    // let itemsStored = JSON.parse(localStorage.getItem('TOP-todo-items')) || []; 
+    // console.log("itemsStored", itemsStored)
     // I think this fails SOLID - rather than doing if statements it should be able to handle anything?
     
     if (project == 'home') {
         return itemsStored.filter((item) => {
-            return item.complete ==  false;
+            return item.complete ==  false || item.complete == undefined;
         }); 
     }
 

@@ -94,11 +94,11 @@ function completeTask() {
     closePopup('#single-item-display');
     RefreshPage(); 
 }
-function deleteTask() {
+async function deleteTask() {
     const item = document.querySelector('#single-item-display h2').innerText; 
-    RemoveItem(item);
+    await RemoveItem(item);
     closePopup('#single-item-display');
-    RefreshPage(); 
+    await RefreshPage(); 
 }
 function checkStrikeThrough(item) {
     const itemsStriked = JSON.parse(localStorage.getItem('TOP-striked-items')) || []; 

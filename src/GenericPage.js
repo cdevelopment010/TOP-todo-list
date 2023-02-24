@@ -1,15 +1,16 @@
 import NavigationDOM from "./navigation/navigationDOM";
 import navigatateSections from "./navigation/navigateSections";
 import filterItems from "./filterItems";
-export default function GenericPage(project, name, items) {
+export default async function GenericPage(project, name, items) {
 
 
     const root = document.querySelector('#root');
     const page = document.createElement('div'); 
     const header = document.createElement('header'); 
     const title = document.createElement('h1'); 
-    const sidebar = new NavigationDOM(); 
-    const content = new project(name, filterItems(name)); 
+    const sidebar = await NavigationDOM(); 
+    const itemsAwait = await filterItems(name)
+    const content = new project(name, itemsAwait); 
     const burgerBar = document.createElement('div'); 
 
     burgerBar.innerHTML = '<i class="fa-solid fa-bars"></i>';

@@ -1,7 +1,6 @@
 {
   "name": "top-todo-list",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,7 +16,19 @@
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
-    "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdevelopment010/TOP-todo-list.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cdevelopment010/TOP-todo-list/issues"
+  },
+  "homepage": "https://github.com/cdevelopment010/TOP-todo-list#readme",
+  "description": "",
+  "dependencies": {
+    "firebase": "^9.17.1"
   }
 }

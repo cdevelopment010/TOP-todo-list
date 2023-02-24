@@ -2,12 +2,14 @@ const path = require('path');
 
 
 module.exports = {
+    mode: 'development',
     entry: './src/index.js', 
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
     }, 
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: 'eval-source-map',
     module: {
         rules: [
             {
@@ -22,5 +24,8 @@ module.exports = {
                 ],
             }
         ]
+    },
+    experiments: {
+        topLevelAwait: true
     }
 }   
